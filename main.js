@@ -1,8 +1,6 @@
 const INITIAL_VALUE = "0";
-
-let currentValue = INITIAL_VALUE;
-let previousValue = ""
-let currentOperator = "";
+const ERROR_VALUE = "Error"
+const MAX_LENGTH = 10;
 
 const numberBtns = document.querySelectorAll(".num-btn");
 const operationDescription = document.getElementById("operation-description");
@@ -13,8 +11,12 @@ const multiplyBtn = document.getElementById('multiply-btn');
 const divideBtn = document.getElementById('divide-btn');
 const equalBtn = document.getElementById('equal-btn');
 const clearBtn = document.getElementById('clear-btn');
+const backspaceBtn = document.getElementById('backspace-btn');
 
-operationResult.textContent = currentValue;
+let currentValue = INITIAL_VALUE;
+let previousValue = "";
+let currentOperator = "";
+
 
 numberBtns.forEach(btn => {
     btn.addEventListener("click", (e) =>  {
@@ -22,22 +24,48 @@ numberBtns.forEach(btn => {
     })
 })
 
-function setCurrentValueHandler(value) {
-    if (currentValue === INITIAL_VALUE) {
-        currentValue = value;
+function updateResultDisplay(value) {
+    // Update the result while limiting the number of digits to 10
+    operationResult.textContent = value.toString().slice(0, MAX_LENGTH + 1); 
+}
+
+function backspaceHandler() {
+    if (currentValue === INITIAL_VALUE || currentValue === ERROR_VALUE) {
+        currentValue = INITIAL_VALUE;
     } else {
-        currentValue = currentValue.concat(value); // Allows to select multiple digits
+        // Slice the last digit off
+        currentValue = currentValue.toString().slice(0, -1); 
     }
-    operationResult.textContent = currentValue;
+    updateResultDisplay(currentValue);
+}
+
+function setCurrentValueHandler(value) {
+    if (value !== ".") {
+        if (currentValue === INITIAL_VALUE || currentValue === ERROR_VALUE) {
+            currentValue = value;
+        } else if (currentValue.length < MAX_LENGTH) {
+            // Allow to select up to 10 digits
+            currentValue = currentValue.concat(value); 
+        } else {
+            currentValue = currentValue;
+        }
+    } else {
+        if (currentValue.includes(value)) {
+            currentValue = currentValue;
+        } else {
+            currentValue = currentValue.concat(value);
+        }
+    }
+    updateResultDisplay(currentValue);
 }
 
 function setOperatorHandler(operator) {
     currentOperator = operator;
 
     // Save the previously selected number and reset the current value
-    previousValue = currentValue;
+    previousValue = currentValue.toString().substring(0,11);
     currentValue = INITIAL_VALUE;
-    
+
     operationDescription.textContent = `${previousValue} ${operator}`;
 }
 
@@ -59,10 +87,15 @@ function operationHandler() {
             currentValue = multiply(a,b);
             break;
         case '/':
-            currentValue = divide(a,b);
+            if (b === 0) {
+                currentValue = ERROR_VALUE;
+            } else {
+                currentValue = divide(a,b);
+            }
             break;
+
     }
-    operationResult.textContent = currentValue;
+    updateResultDisplay(currentValue);
 }
 
 function clearScreenHandler() {
@@ -71,7 +104,7 @@ function clearScreenHandler() {
     currentOperator = "";
 
     operationDescription.textContent = "";
-    operationResult.textContent = currentValue;
+    updateResultDisplay(currentValue);
 }
 
 function add(a, b) {
@@ -91,9 +124,12 @@ function multiply(a, b) {
 }
 
 
-addBtn.addEventListener("click", setOperatorHandler.bind(this, operator="+"))
-subtractBtn.addEventListener("click", setOperatorHandler.bind(this,operator="-"))
-multiplyBtn.addEventListener("click", setOperatorHandler.bind(this, operator="*"))
-divideBtn.addEventListener("click", setOperatorHandler.bind(this, operator="/"))
+addBtn.addEventListener("click", setOperatorHandler.bind(this, operator="+"));
+subtractBtn.addEventListener("click", setOperatorHandler.bind(this,operator="-"));
+multiplyBtn.addEventListener("click", setOperatorHandler.bind(this, operator="*"));
+divideBtn.addEventListener("click", setOperatorHandler.bind(this, operator="/"));
 equalBtn.addEventListener("click", operationHandler);
 clearBtn.addEventListener("click", clearScreenHandler);
+backspaceBtn.addEventListener("click", backspaceHandler);
+
+updateResultDisplay(currentValue);
