@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -13,29 +16,30 @@
     </header>
     <main>
         <div class="calc-container">
-            <div id="screen">
+            <div class="screen">
                 <p id="operation-description"></p>
                 <p id="operation-result"> </p>
             </div>
             <div class="buttons">
-                <button id="clear-btn"> CLEAR </button>
+                <button id="clear-btn"> AC </button>
+                <button id="percent-btn"> % </button>
                 <button id="backspace-btn"> DEL </button>
-                <button class="operator-btn" id="divide-btn"> : </button>
+                <button class="operator-btn" id="divide-btn">:</button>
                 <button class="num-btn">7</button>
                 <button class="num-btn">8</button>
                 <button class="num-btn">9</button>
-                <button class="operator-btn" id="multiply-btn"> x </button>
+                <button class="operator-btn" id="multiply-btn">x</button>
                 <button class="num-btn">4</button>
                 <button class="num-btn">5</button>
                 <button class="num-btn">6</button>
-                <button class="operator-btn" id="subtract-btn"> - </button>
+                <button class="operator-btn" id="subtract-btn">-</button>
                 <button class="num-btn">1</button>
                 <button class="num-btn">2</button>
                 <button class="num-btn">3</button>
-                <button class="operator-btn" id="add-btn"> + </button>
-                <button class="num-btn">0</button>
+                <button class="operator-btn" id="add-btn">+</button>
                 <button class="num-btn">.</button>
-                <button id="equal-btn"> = </button>
+                <button class="num-btn">0</button>
+                <button id="equal-btn">=</button>
             </div>
         </div>
     </main>

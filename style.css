@@ -1,0 +1,101 @@
+:root {
+    --clr-primary:#d3d3d3;
+    --clr-secondary:#0f2027;
+    --clr-accent: #84b1c4;
+    --clr-white: #FFF;
+    --clr-gradient: linear-gradient(0, #0f2027, #203A43, #2C5364);
+
+    --ff-sans-serif: 'Nunito Sans', sans-serif;
+    --fs-main:2.5em;
+    --fs-button:1.5em;
+    --fs-description:1.2em;
+    --fs-result:2em;
+    --fw-bold:700;
+    --fw-light:300;
+    --fw-regular:400;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    text-align: center; 
+    font-family: var(--ff-sans-serif);
+    font-weight: var(--fw-light);
+    font-size: var(--fs-button);
+    color: var(--clr-white);
+}
+
+header,
+main  {
+    padding: 2rem;
+    margin: 0 auto;
+    max-width: 30rem;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.7rem 0;
+    background-color: transparent;
+    border: none;
+}
+
+h1 {
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-main);
+    color: var(--clr-secondary);
+}
+
+.calc-container {
+    padding: 2.5em 1.2rem;
+    background-image: var(--clr-gradient);
+    border-radius:20px;
+    box-shadow: 0 5px 10px rgba(15, 32, 39, 0.55);
+}
+
+.screen {
+    min-height: 9rem;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 1rem;
+}
+
+.buttons {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 1rem;
+    gap: 1.5rem;
+}
+
+
+.num-btn {
+    color: var(--clr-primary);
+}
+
+.operator-btn {
+    color: var(--clr-accent);
+    font-weight: var(--fw-regular);
+}
+
+#equal-btn {
+    grid-column: 4;
+    border: 1px solid var(--clr-accent);
+    border-radius: 20px;
+}
+
+#operation-description {
+    font-size: var(--fs-description);
+}
+
+#operation-result {
+    font-size: var(--fs-result);
+    font-weight: var(--fw-regular);
+}
